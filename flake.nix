@@ -19,6 +19,7 @@
           stlink-tool
           gcc-arm-embedded
           picocom
+          renode-bin
         ];
       };
     });

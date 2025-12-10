@@ -19,6 +19,8 @@
           stlink-tool
           gcc-arm-embedded
           tio
+          ncurses
+          pkg-config
           renode-bin
         ];
       };

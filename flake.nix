@@ -3,7 +3,7 @@
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
   outputs = { self, nixpkgs }:
   let
-    supportedSystems = [ "x86_64-linux" "aarch64-linux" ];
+    supportedSystems = [ "x86_64-linux" ];
     forEachSupportedSystem = f: nixpkgs.lib.genAttrs supportedSystems (system: f {
       pkgs = import nixpkgs { inherit self system; };
     });
@@ -19,8 +19,6 @@
           stlink-tool
           gcc-arm-embedded
           tio
-          ncurses
-          pkg-config
           renode-bin
         ];
       };

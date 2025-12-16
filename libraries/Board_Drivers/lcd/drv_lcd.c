@@ -52,6 +52,7 @@ struct drv_lcd_device
 };
 
 static struct drv_lcd_device _lcd;
+static rt_err_t lcd_device_init(struct rt_device *device);
 
 // 写寄存器函数
 // regval:寄存器值
@@ -1096,7 +1097,26 @@ __weak void lcd_teareffect_isr()   // 60hz
 }
 #endif /* BSP_USING_ONBOARD_LCD_TEAREFFECT */
 
-rt_err_t drv_lcd_init(struct rt_device *device)
+int drv_lcd_hw_init(void)
+{
+    static struct rt_device lcd_dev;
+
+    lcd_dev.type    = RT_Device_Class_Graphic;
+    lcd_dev.init    = lcd_device_init;
+    lcd_dev.open    = RT_NULL;
+    lcd_dev.close   = RT_NULL;
+    lcd_dev.read    = RT_NULL;
+    lcd_dev.write   = RT_NULL;
+    lcd_dev.control = RT_NULL;
+
+    rt_device_register(&lcd_dev, "lcd", RT_DEVICE_FLAG_RDWR);
+
+    return 0;
+}
+
+
+// static rt_err_t drv_lcd_init(struct rt_device *device)
+static rt_err_t lcd_device_init(struct rt_device *device)
 {
 
     SRAM_HandleTypeDef hsram1 = {0};
@@ -1285,7 +1305,8 @@ rt_err_t drv_lcd_init(struct rt_device *device)
 
     return RT_EOK;
 }
-INIT_COMPONENT_EXPORT(drv_lcd_init);
+// INIT_COMPONENT_EXPORT(drv_lcd_init);
+INIT_COMPONENT_EXPORT(drv_lcd_hw_init);
 
 struct rt_device_graphic_ops fsmc_lcd_ops =
     {
@@ -1330,30 +1351,31 @@ const static struct rt_device_ops lcd_ops =
         drv_lcd_control};
 #endif
 
-int drv_lcd_hw_init(void)
-{
-    rt_err_t result = RT_EOK;
-    struct rt_device *device = &_lcd.parent;
-    /* memset _lcd to zero */
-    memset(&_lcd, 0x00, sizeof(_lcd));
-
-    _lcd.lcd_info.bits_per_pixel = 16;
-    _lcd.lcd_info.pixel_format = RTGRAPHIC_PIXEL_FORMAT_RGB565;
-
-    device->type = RT_Device_Class_Graphic;
-#ifdef RT_USING_DEVICE_OPS
-    device->ops = &lcd_ops;
-#else
-    device->init = drv_lcd_init;
-    device->control = drv_lcd_control;
-#endif
-    device->user_data = &fsmc_lcd_ops;
-    /* register lcd device */
-    rt_device_register(device, "lcd", RT_DEVICE_FLAG_RDWR | RT_DEVICE_FLAG_STANDALONE);
-
-    return result;
-}
-INIT_DEVICE_EXPORT(drv_lcd_hw_init);
+// Old version
+// int drv_lcd_hw_init(void)
+// {
+//     rt_err_t result = RT_EOK;
+//     struct rt_device *device = &_lcd.parent;
+//     /* memset _lcd to zero */
+//     memset(&_lcd, 0x00, sizeof(_lcd));
+//
+//     _lcd.lcd_info.bits_per_pixel = 16;
+//     _lcd.lcd_info.pixel_format = RTGRAPHIC_PIXEL_FORMAT_RGB565;
+//
+//     device->type = RT_Device_Class_Graphic;
+// #ifdef RT_USING_DEVICE_OPS
+//     device->ops = &lcd_ops;
+// #else
+//     device->init = drv_lcd_init;
+//     device->control = drv_lcd_control;
+// #endif
+//     device->user_data = &fsmc_lcd_ops;
+//     /* register lcd device */
+//     rt_device_register(device, "lcd", RT_DEVICE_FLAG_RDWR | RT_DEVICE_FLAG_STANDALONE);
+//
+//     return result;
+// }
+// INIT_DEVICE_EXPORT(drv_lcd_hw_init);
 
 #ifdef BSP_USING_ONBOARD_LCD_TEST
 void lcd_auto_fill(void *para)

@@ -10,7 +10,8 @@
 
 #include <rtthread.h>
 #include <rtdevice.h>
-#include <stm32F4xx.h>
+// #include <stm32F4xx.h>
+#include <stm32f4xx_hal.h>
 #include "board.h"
 #include "drv_gpio.h"
 

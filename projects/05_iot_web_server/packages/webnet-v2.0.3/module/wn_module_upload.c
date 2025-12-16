@@ -21,10 +21,25 @@
  * 2012-06-25     Bernard      the first version
  */
 
+#include <stddef.h>
+#include <rtthread.h>
+
+static void *memrchr(const void *s, int c, size_t n)
+{
+    const unsigned char *p = (const unsigned char *)s + n;
+    while (n--)
+    {
+        if (*(--p) == (unsigned char)c)
+            return (void *)p;
+    }
+    return NULL;
+}
+
 #include <webnet.h>
 #include <wn_module.h>
 #include <wn_utils.h>
-
+#include <string.h>
+#include <strings.h>
 #ifdef RT_USING_DFS
 #include <unistd.h>
 #include <fcntl.h>

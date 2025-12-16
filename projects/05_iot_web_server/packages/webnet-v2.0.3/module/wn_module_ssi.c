@@ -20,6 +20,9 @@
  * Date           Author       Notes
  * 2012-06-25     Bernard      the first version
  */
+
+#include <string.h>
+#include <strings.h>
 #include <webnet.h>
 #include <wn_session.h>
 #include <wn_module.h>

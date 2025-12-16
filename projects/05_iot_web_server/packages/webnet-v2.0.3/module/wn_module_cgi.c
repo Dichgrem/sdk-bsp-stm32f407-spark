@@ -21,6 +21,10 @@
  * 2011-08-02     Bernard      the first version
  */
 
+#define _POSIX_C_SOURCE 200809L
+
+#include <strings.h>
+#include <stdio.h>
 #include <string.h>
 
 #include <webnet.h>

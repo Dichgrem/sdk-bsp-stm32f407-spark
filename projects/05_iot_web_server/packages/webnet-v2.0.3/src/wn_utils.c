@@ -23,7 +23,9 @@
 
 #include <ctype.h>
 #include <rtthread.h>
-
+#include <strings.h>
+#include <stdio.h>
+#include <string.h>
 #include <webnet.h>
 #include <wn_utils.h>
 

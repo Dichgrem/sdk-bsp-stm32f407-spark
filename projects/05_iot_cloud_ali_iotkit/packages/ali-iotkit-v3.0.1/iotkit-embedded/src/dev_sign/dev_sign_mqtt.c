@@ -3,7 +3,7 @@
 #include "infra_defs.h"
 #include "infra_config.h"
 #include "infra_sha256.h"
-
+#include <rtthread.h>
 #include "dev_sign_api.h"
 #include "dev_sign_wrapper.h"
 

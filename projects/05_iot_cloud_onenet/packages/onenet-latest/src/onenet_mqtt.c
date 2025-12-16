@@ -116,7 +116,8 @@ static void mqtt_offline_callback(MQTTClient *c)
     LOG_D("Enter mqtt_offline_callback!");
 }
 
-static void mqtt_usr_callback(MQTTClient *c)
+// static void mqtt_usr_callback(MQTTClient *c)
+static void mqtt_usr_callback(MQTTClient *client, MessageData *data)
 {
     LOG_D("Enter mqtt_usr_callback!");
 }

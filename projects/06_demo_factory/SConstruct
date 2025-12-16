@@ -58,6 +58,6 @@ if not os.path.exists('libraries'):
 
     # include drivers
     objs.extend(SConscript(os.path.join(libraries_path_prefix, 'HAL_Drivers', 'SConscript')))
-
+    objs.extend(SConscript(os.path.join(libraries_path_prefix, 'Board_Drivers', 'SConscript')))
 # make a building
 DoBuilding(TARGET, objs)

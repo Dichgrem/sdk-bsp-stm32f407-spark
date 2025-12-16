@@ -31,6 +31,7 @@
 #include <rthw.h>
 #include "lib/utils/interrupt_char.h"
 #include "mpgetcharport.h"
+#include "py/runtime.h"
 
 #define UART_FIFO_SIZE 256
 

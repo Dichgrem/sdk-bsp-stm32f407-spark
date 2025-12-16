@@ -75,6 +75,7 @@ typedef struct
 #define D2U_R2L  7      //从下到上,从右到左
 
 rt_err_t drv_lcd_init(struct rt_device *device);
+
 void lcd_clear(rt_uint16_t color);
 void lcd_address_set(rt_uint16_t x1, rt_uint16_t y1, rt_uint16_t x2, rt_uint16_t y2);
 void lcd_set_color(rt_uint16_t back, rt_uint16_t fore);
